@@ -1,0 +1,9 @@
+{	
+	
+	"getByGuid":"MATCH (td:term_data {guid:{guid}}) RETURN td",
+	"createLink":"MATCH (s:SRC_LBL {guid:{src}}),(d:DEST_LBL {guid:{dest}}) MERGE (s)-[r:REL]->(d) RETURN r as rid",
+	"detachDeleteNode":"MATCH (td:term_data{guid:{guid}}) DETACH DELETE td"
+	
+	
+	
+}

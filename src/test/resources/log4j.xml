@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="fileappender" class="org.apache.log4j.RollingFileAppender">
+		<param name="maxBackupIndex" value="50" />
+		<param name="maxFileSize" value="512MB" />
+		<param name="File" value="/tmp/logs/neo4j-lib.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{HH:mm:ss,SSS} %t %-5p %c - %m%n" />
+		</layout>
+	</appender>
+
+	
+	<root>
+		<priority value="DEBUG" />
+		<appender-ref ref="fileappender" />
+	</root>
+	
+</log4j:configuration>

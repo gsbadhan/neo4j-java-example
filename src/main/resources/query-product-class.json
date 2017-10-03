@@ -1,0 +1,20 @@
+{
+
+	"getByGuid":"MATCH (pc:product_class {guid:{guid}}) RETURN pc",
+	
+	"getByName":"MATCH (pc:product_class {name:{name}}) RETURN pc",
+	
+	"classHasDataItem":"MATCH (s:product_class {guid:{src}}),(d:data_item {guid:{dest}}) MERGE (s)-[r:has]->(d) RETURN r as rid",
+	
+	"classHasEvents":"MATCH (s:product_class {guid:{src}}),(d:events {guid:{dest}}) MERGE (s)-[r:has]->(d) RETURN r as rid",
+	
+	"classHasAggDataItem":"MATCH (s:product_class {guid:{src}}),(d:data_item {guid:{dest}}) MERGE (s)-[r:has{avg:{avg}}]->(d) RETURN r as rid",
+	
+	"isAssetNameExistUnderClass":"MATCH (s:product_class {name:{src}})-[:has]->(d:asset {name:{dest}}) RETURN COUNT(d)>0 AS st",
+	
+	"getAllProductClasses":"MATCH (pc:product_class) RETURN pc",
+	
+	"createLink":"MATCH (s:SRC_LBL {guid:{src}}),(d:DEST_LBL {guid:{dest}}) MERGE (s)-[r:REL]->(d) RETURN r as rid"
+		
+
+}

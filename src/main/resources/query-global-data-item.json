@@ -1,0 +1,4 @@
+{
+	"globalDataItemIsClass":"MATCH (s:global_data_item {guid:{src}}),(d:DEST_LBL {guid:{dest}}) MERGE (s)-[r:is]->(d) RETURN r as rid"
+	
+}

@@ -1,0 +1,53 @@
+{
+	
+	"createLink":"MATCH (s:SRC_LBL {guid:{src}}),(d:DEST_LBL {guid:{dest}}) MERGE (s)-[r:REL]->(d) RETURN r as rid",
+	
+	"deleteOutLink":"MATCH (s:SRC_LBL {guid:{src}})-[r:REL]->(d:DEST_LBL {guid:{dest}}) DELETE r RETURN r as rid",
+	
+	"deleteAllOutLink":"MATCH (s:SRC_LBL {guid:{src}})-[r:REL]->(d) DELETE r",
+	
+	"classHasDataShard":"MATCH (s:SRC_LBL {guid:{src}}),(d:data_shard {guid:{dest}}) MERGE (s)-[r:has]->(d) RETURN r as rid",
+	
+	"classTemplateGlobalOrg":"MATCH (s:SRC_LBL {guid:{src}}),(d:global_org {guid:{dest}}) MERGE (s)-[r:template]->(d) RETURN r as rid",
+	
+	"classTemplateGlobalProducts":"MATCH (s:SRC_LBL {guid:{src}}),(d:global_products {guid:{dest}}) MERGE (s)-[r:template]->(d) RETURN r as rid",
+	
+	"classTemplateGlobalClasess":"MATCH (s:SRC_LBL {guid:{src}}),(d:global_classes {guid:{dest}}) MERGE (s)-[r:template]->(d) RETURN r as rid",
+	
+	"getByGuid":"MATCH (c:SRC_LBL {guid:{guid}}) RETURN c",
+	
+	"getVertexQuery":"MATCH (c:SRC_LBL {property_x:{propertyX}}) RETURN c",
+	
+	"getInVertices":"MATCH (c:SRC_LBL {property_x:{propertyX}})<-[r:REL]-(x:DEST_LBL) RETURN LABELS(x)[0] as lbl,x,r,TYPE(r) as rlbl",
+	
+	"getOutVertices":"MATCH (c:SRC_LBL {property_x:{propertyX}})-[r:REL]->(x:DEST_LBL) RETURN LABELS(x)[0] as lbl,x,r,TYPE(r) as rlbl",
+	
+	"getBothVertices":"MATCH (c:SRC_LBL {property_x:{propertyX}})-[r:REL]-(x:DEST_LBL) RETURN LABELS(x)[0] as lbl,x,r,TYPE(r) as rlbl",
+	
+	"getByProperty":"MATCH (c) WHERE c.property_x = {propertyX} RETURN LABELS(c)[0] AS lbl,c",
+	
+	"isParentConnectedToChild":"MATCH (s:SRC_LBL {guid:{src}})<-[r:REL]-(d{name:{name}}) RETURN DISTINCT (CASE WHEN d IS NOT NULL THEN true ELSE false END) AS st",
+	
+	"isConnectedIn":"MATCH (s:SRC_LBL {guid:{src}})<-[r:REL]-(d:DEST_LBL{guid:{dest}}) RETURN DISTINCT (CASE WHEN d IS NOT NULL THEN true ELSE false END) AS st",
+	
+	"classHasDataItem":"MATCH (s:SRC_LBL {guid:{src}}),(d:data_item {guid:{dest}}) MERGE (s)-[r:has]->(d) RETURN r as rid",
+	
+	"classHasAggDataItem":"MATCH (s:SRC_LBL {guid:{src}}),(d:data_item {guid:{dest}}) MERGE (s)-[r:has{avg:{avg}}]->(d) RETURN r as rid",
+	
+	"classHasEvents":"MATCH (s:SRC_LBL {guid:{src}}),(d:events {guid:{dest}}) MERGE (s)-[r:has]->(d) RETURN r as rid",
+	
+	"mandatoryPropertyVertex":"MATCH (s:SRC_LBL{guid:{src}})-[:is*]->(d) RETURN d,LABELS(d)[0] as lbl",
+
+	"getByName":"MATCH (c:SRC_LBL {name:{name}}) RETURN c",
+	
+	"getClassAndProductClass":"MATCH (c:SRC_LBL {property_x:{propertyX}})<-[r:REL]-(x) WHERE (x:class OR x:product_class) RETURN LABELS(x)[0] as lbl,x,r,TYPE(r) as rlbl",
+
+	"getDomainClassByContractType":"MATCH (ctt:contract_type{guid:{guid}})<-[:has]-(cls:class{principal_guid:{principalGuid},type:{type}}) RETURN LABELS(cls)[0] AS lbl, cls",
+	
+	"detachDeleteNode":"MATCH (cl:class{guid:{guid}}) DETACH DELETE cl",
+	
+	"getDomainChildClass":"MATCH (:class{guid:{guid}})<-[:is]-(cls:class) WHERE cls.name CONTAINS {regex} RETURN LABELS(cls)[0] AS lbl, cls",
+	
+	"getDomainClassByContract":"MATCH (ct:contract{guid:{src}})<-[:has]-(ctt:contract_type)<-[:has]-(cls:class{guid:{dest}}) RETURN LABELS(cls)[0] AS lbl, cls"
+	
+}

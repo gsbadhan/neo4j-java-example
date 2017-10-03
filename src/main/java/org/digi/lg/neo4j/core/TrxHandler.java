@@ -1,0 +1,47 @@
+/*******************************************************************************
+ * Copyright (c) 2017  Wipro Digital. All rights reserved.
+ * 
+ *  Contributors:
+ *      Wipro Digital - Looking Glass Team.
+ *      
+ *      
+ *      May 5, 2017
+ ******************************************************************************/
+package org.digi.lg.neo4j.core;
+
+import org.neo4j.driver.v1.Session;
+import org.neo4j.driver.v1.Transaction;
+
+public abstract class TrxHandler<RET> {
+	private final Transaction transaction;
+	private final Object[] optionalArgs;
+
+	public TrxHandler(final Session session) {
+		this.transaction = GraphTransaction.start(session);
+		this.optionalArgs = null;
+	}
+
+	public TrxHandler(final Session session, final Object... optionalArgs) {
+		this.transaction = GraphTransaction.start(session);
+		this.optionalArgs = optionalArgs;
+	}
+
+	public RET execute() throws Exception {
+		try {
+			RET ret = block(transaction);
+			GraphTransaction.commit(transaction);
+			return ret;
+		} catch (Exception e) {
+			GraphTransaction.rollback(transaction);
+			throw e;
+		} finally {
+			GraphTransaction.close(transaction);
+		}
+	}
+
+	protected Object[] getOptionalArgs() {
+		return optionalArgs;
+	}
+
+	public abstract RET block(final Transaction transaction);
+}

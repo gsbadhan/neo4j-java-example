@@ -1,0 +1,12 @@
+{
+	
+	"contractHasAdminUnit":"MATCH (s:contract {guid:{src}}),(d:admin_unit {guid:{dest}}) MERGE (s)-[r:has]->(d) RETURN r as rid",
+	
+	"personAppContract" : "MATCH p=(pr:principal{principal_id:{principalId}})-[bs:belongs]->(ad:admin_unit)<-[:has]-(ct:contract)<-[:has]-(ctt:contract_type)<-[:has]-(ap:app{app_id:{appid}}) RETURN pr,ad,ct,ctt,ap,bs.is_admin AS isAdmin",
+	
+	"getByGuid":"MATCH (ct:contract {guid:{guid}}) RETURN ct",
+	
+	"contractInHasOrgVertices":"MATCH (ct:contract {guid:{guid}})<-[:has]-(v:org) WHERE v.name IS NOT NULL RETURN LABELS(v)[0] AS lbl,v.guid AS guid,v.name AS name",
+	
+	"getOrgByContractGuid":"MATCH (ct:contract {guid:{guid}}) <-[:has]-(or:org) RETURN or"
+}

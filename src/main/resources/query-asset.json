@@ -1,0 +1,36 @@
+{	
+	"getByGuid":"MATCH (at:asset {guid:{guid}}) RETURN at",
+	
+	"getBySerialNumberSearch":"MATCH (at:asset) WHERE LOWER(at.serial_number) CONTAINS LOWER({serialNumber}) RETURN at",
+	
+	"getCompatible":"MATCH p=(ast:asset{guid:{guid}})-[:is]->(pc:product_class)-[:compatible]->(bdc:class) WITH COLLECT(p) AS paths CALL org.digi.lg.convert.toTree(paths) YIELD value RETURN value",
+	
+	"deleteAssetIsClassAll":"MATCH (ast:asset{guid:{guid}})-[r:is]->(cls:class) DELETE r RETURN r",
+	
+	"getByGuidAndLabel":"MATCH (at:SRC_LBL {guid:{guid}}) RETURN at",
+	
+	"getByProductClass":"MATCH (s:SRC_LBL {guid:{guid}})-[:is]->(pc:product_class) RETURN pc",
+	
+	"getAssetByAssetName":"MATCH (pc:product_class{name:{src}})<-[:is]-(at:asset{name:{dest}}) RETURN at,LABELS(at) AS lbl",
+	
+	"getAssetBySerialNumber":"MATCH (pc:product_class{name:{src}})<-[:is]-(at:asset{serial_number:{dest}}) RETURN at,LABELS(at) AS lbl",
+	
+	"getAssetByOrg":"MATCH (or:org{guid:{src}})-[:has*]->(at:asset{serial_number:{dest}}) RETURN DISTINCT at,LABELS(at) AS lbl",	
+	
+	"getAssetByClass":"MATCH(ct:contract{guid:{contractId}})<-[:has*..1]-(or:org)-[:has*..50]->(astx:asset) MATCH(ctta:contract_type{guid:{contractTypeId}})<-[:has*..1]-(cl:class)<-[:is*]-(clas:product_class{guid:{productClassId}})<-[:is*]-(asty:asset)  WHERE astx.guid=asty.guid RETURN astx,LABELS(astx) AS lbl",
+	
+	"getAssetByProductClass":"MATCH(clas:product_class{guid:{productClassId}})<-[:is*]-(asty:asset)  RETURN astx,LABELS(astx) AS lbl",
+	
+	"detachDeleteNode":"MATCH (as:asset{guid:{guid}}) DETACH DELETE as",
+	
+	"createLink":"MATCH (s:SRC_LBL {guid:{src}}),(d:DEST_LBL {guid:{dest}}) MERGE (s)-[r:REL]->(d) RETURN r as rid",
+	
+	"getAssetByProductClassGuid":"MATCH (clas:product_class{guid:{productClassId}})<-[:is*]-(at:asset) RETURN DISTINCT at,LABELS(at) AS lbl",
+	
+	"getLicenceAssetBybootStrapOrg":"MATCH (org:org{guid:{guid}})-[:has]->(at:asset) where toInt(at.max_asset_count) >0   RETURN at",
+		
+	"getAllLicenceAssets":"MATCH (at:asset) WHERE toInt(at.current_asset_count) >0 RETURN DISTINCT at,LABELS(at) AS lbl "
+	
+	
+	
+	}

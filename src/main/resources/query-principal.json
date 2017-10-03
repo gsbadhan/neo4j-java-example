@@ -1,0 +1,13 @@
+{	
+	
+	"principalBelongsAdminUnit":"MATCH (s:principal {guid:{src}}),(d:admin_unit {guid:{dest}}) MERGE (s)-[r:belongs]->(d) SET r.is_admin={isAdmin} RETURN r as rid",
+	
+	"detachPrincipalBelongsAdminUnit":"MATCH (s:principal {guid:{src}})-[r:belongs{is_admin:{isAdmin}}]->(d:admin_unit {guid:{dest}}) DELETE r RETURN r as rid",
+	
+	"getByGuid":"MATCH (p:principal {guid:{guid}}) RETURN p",
+	
+	"getByPrincipalId":"MATCH (p:principal {principal_id:{principalId}}) RETURN p",
+	
+	"createLink":"MATCH (s:SRC_LBL {guid:{src}}),(d:DEST_LBL {guid:{dest}}) MERGE (s)-[r:REL]->(d) RETURN r as rid"
+		
+}

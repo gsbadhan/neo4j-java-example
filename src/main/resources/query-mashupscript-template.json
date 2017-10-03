@@ -1,0 +1,11 @@
+{
+	"getByGuid": "MATCH (mashup:mashup {guid:{guid}}) RETURN mashup",
+	"getByPath": "MATCH (mashup:mashup {path:{path}}) RETURN mashup",
+	"getMashUpInfoByAduGuid": "MATCH (:admin_unit{guid:{guid}})<-[:has]-(spt:mashup)  RETURN spt,LABELS(spt)[0] AS lbl",
+	"getmashupHasScriptRepo": "MATCH (s:SRC_LBL {guid:{src}}),(d:script_repo{guid:{dest}}) MERGE (s)-[r:has]->(d) RETURN r as rid",
+    "getScriptrepro":"MATCH(sc:mashup{path:{path}})-[r:has]->(cf:script_repo) RETURN sc,LABELS(sc)[0] AS lbl",
+	"getScriptRepobyPath": "MATCH (mashup{path:{path}})-[:has]->(sp:script_repo) RETURN sp"
+
+    
+
+}

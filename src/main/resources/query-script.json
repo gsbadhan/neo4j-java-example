@@ -1,0 +1,32 @@
+{	
+	
+	"getByGuid":"MATCH (sp:script {guid:{guid}}) RETURN sp",
+	
+	"getByName":"MATCH (sp:script {name:{name}}) RETURN sp",
+	
+	"getScriptsByAduGuid":"MATCH (ad:admin_unit{guid:{guid}})<-[:belongs]-(sp:script) RETURN sp,LABELS(sp)[0] AS lbl",
+	
+	"getScriptConfigItems":"MATCH(sc:script{guid:{guid}})-[r:has]->(cf:config_item) RETURN cf,LABELS(cf)[0] AS lbl,r",
+	
+	"getScriptPublicAssets":"MATCH(sc:script{guid:{guid}})-[r:appliesto]->(ast:product_class) RETURN ast,LABELS(ast)[0] AS lbl",
+	
+	"getScriptAppliesToAssets":"MATCH(sc:script{guid:{guid}})-[r:appliesto]->(ast:asset) RETURN ast,LABELS(ast)[0] AS lbl",
+	
+	"getScriptDataItems":"MATCH(sc:script{guid:{guid}})-[r:trigger]->(di:data_item) RETURN di,LABELS(di)[0] AS lbl,r",
+	
+	"getScriptEvents":"MATCH(sc:script{guid:{guid}})-[r:has]->(evts:events) RETURN evts,LABELS(evts)[0] AS lbl,r",
+	
+	"countScriptTemplateInstance":"MATCH (spt:script_template{guid:{src}})<-[:has]-(:script)-[:appliesto]->(ast:DEST_LBL{guid:{dest}}) RETURN COUNT(ast) AS cnt",
+	
+	"getScriptAdminUnits":"MATCH(sc:script{guid:{guid}})-[r:has]->(adu:admin_unit) RETURN adu,LABELS(adu)[0] AS lbl,r",	
+	
+	"getOtherScripts":"MATCH(sc:script{guid:{guid}})<-[r:has]-(scn:script)   RETURN scn,LABELS(scn)[0] AS lbl,r",
+	
+	"getScriptByScriptTemplate":"MATCH(st:script_template{guid:{guid}})<-[r:has]-(sc:script)   RETURN sc,LABELS(sc)[0] AS lbl,r",
+	
+	"getScriptTemplateInstance":"MATCH (spt:script_template{guid:{src}})<-[x:has]-(st:script)-[y:appliesto]->(ast:DEST_LBL{guid:{dest}}) RETURN  st,LABELS(st)[0] AS lbl",
+	
+	"createLink":"MATCH (s:SRC_LBL {guid:{src}}),(d:DEST_LBL {guid:{dest}}) MERGE (s)-[r:REL]->(d) RETURN r as rid"
+	
+	
+}

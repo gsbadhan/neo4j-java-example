@@ -1,0 +1,7 @@
+{	
+	
+	"getByGuid":"MATCH (te:term_event {guid:{guid}}) RETURN te",
+	"createLink":"MATCH (s:SRC_LBL {guid:{src}}),(d:DEST_LBL {guid:{dest}}) MERGE (s)-[r:REL]->(d) RETURN r as rid"
+	
+	
+}

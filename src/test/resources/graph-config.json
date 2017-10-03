@@ -1,0 +1,16 @@
+{
+	"load.from.path":"false",
+	"resource.path": "/home/ubuntu/new_workspace/lg-neo4j-lib/src/main/resources/",
+	"db.url": "bolt://localhost:7687",
+	"db.user": "neo4j",
+	"db.password": "test",
+	"db.read.url": "bolt://localhost:7687",
+	"db.read.user": "neo4j",
+	"db.read.password": "test",
+	"db.pool": 50,
+	"transaction.retry": 2,
+	"transaction.retry.delay": 5,
+	"trx.retry.errors": "concurrent",
+	"max.page.size": 50,
+	"stop.find.after":300
+}

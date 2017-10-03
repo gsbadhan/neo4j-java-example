@@ -1,0 +1,7 @@
+{	
+	
+	"getByGuid":"MATCH (tm:term_mashup {guid:{guid}}) RETURN tm",
+	"createLink":"MATCH (s:SRC_LBL {guid:{src}}),(d:DEST_LBL {guid:{dest}}) MERGE (s)-[r:REL]->(d) RETURN r as rid",
+	"detachDeleteNode":"MATCH (ts:term_service{guid:{guid}}) DETACH DELETE ts"
+	
+}

@@ -1,0 +1,9 @@
+{
+	"addUpdate":"MERGE (ap:app {guid:{guid}}) SET ap.name={name}, ap.app_id={appid} RETURN ap",
+	
+	"appHasContractType":"MATCH (s:app {guid:{src}}),(d:contract_type {guid:{dest}}) MERGE (s)-[r:has]->(d) RETURN r as rid",
+	
+	"getAppByName":"MATCH (ap:app {name:{name}}) RETURN ap",
+	
+	"getAppByContractType":"MATCH (ctt:contract_type {guid:{guid}})<-[:has]-(ap:app) RETURN ap"
+}

@@ -1,0 +1,12 @@
+{	
+	
+	"getByGuid":"MATCH (di:data_item {guid:{guid}}) RETURN di",
+	"getDataItemByContractType":"MATCH(ctta:contract_type{guid:{contractTypeId}})-[:has]->(td:term_data)-[:has*]->(di:data_item) RETURN di",
+	"getEdgesByProductClass":"MATCH (di:data_item {guid:{src}})<-[r:has]-(cl:product_class {guid:{dest}}) RETURN r as rid",
+	"dataItemHasProductClass":"MATCH (di:data_item)<-[r:has]-(cl:product_class {guid:{src}}) RETURN di",
+	"getDataItemsByClass":"MATCH (di:data_item),(cl:class {guid:{src}}) MERGE (di)<-[r:has]-(cl) RETURN di",
+	"getDataItemByProductClass":"MATCH (product_class{guid:{src}})-[:has]->(di:data_item{name:{dest}}) RETURN di",
+	"getDomainDataItems":"MATCH (contract_type{guid:{guid}})<-[:has]-(:class)<-[:is]-(:class)-[:has*]->(di:data_item) RETURN LABELS(di)[0] AS lbl,di",
+	"detachDeleteNode":"MATCH (di:data_item{guid:{guid}}) DETACH DELETE di"
+	
+}

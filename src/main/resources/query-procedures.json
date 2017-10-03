@@ -1,0 +1,23 @@
+{
+	"isAuthorized":"CALL org.digi.lg.neo4j.udf.authorization.isAuthorized({userId},{appId},{contractTypeId},{contractId},{vertexId},{vertexLabel},{acrossDomain})",
+	"authorizeOrg": "CALL org.digi.lg.neo4j.udf.authorization.authorizeOrg({contractTypeId},{contractId},{orgVertexId},{acrossDomain})",
+	"authorizeClass": "CALL org.digi.lg.neo4j.udf.authorization.authorizeClass({contractTypeId},{classVertexId},{acrossDomain})",
+	"authorizeAsset": "CALL org.digi.lg.neo4j.udf.authorization.authorizeAsset({contractTypeId},{contractId},{assetVertexId},{acrossDomain})",
+	"authorizeContractType": "CALL org.digi.lg.neo4j.udf.authorization.authorizeContractType({contractTypeId},{contractTypeVertexId},{acrossDomain})",
+	"authorizeContract": "CALL org.digi.lg.neo4j.udf.authorization.authorizeContract({contractTypeId},{contractVertexId},{acrossDomain})",
+	"authorizeAdminUnit": "CALL org.digi.lg.neo4j.udf.authorization.authorizeADU({contractTypeId},{aduVertexId},{acrossDomain})",
+	"authorizePrincipal": "CALL org.digi.lg.neo4j.udf.authorization.authorizePrincipal({adminUnitId},{contractTypeId},{principalVertexId},{acrossDomain})",
+	"authorizeScript": "CALL org.digi.lg.neo4j.udf.authorization.authorizeScript({contractTypeId},{scriptVertexId},{acrossDomain})",
+	"authorizeModelClass":"CALL org.digi.lg.neo4j.udf.authorization.authorizeModelClass({contractTypeId},{classVertexId},{acrossDomain})",
+	"authorizeDataItem":"CALL org.digi.lg.neo4j.udf.authorization.authorizeDataItem({contractTypeId},{diVertexId},{acrossDomain})",
+	"authorizeEvents":"CALL org.digi.lg.neo4j.udf.authorization.authorizeEvents({contractTypeId},{eventsVertexId},{acrossDomain})",
+	"getAssetByOrg":"CALL org.digi.lg.neo4j.udf.data.dataProcedures.getAssetByOrg({userId},{appId},{contractTypeId},{contractId},{orgVertexId},{filters},{pageOffset})",
+	"getClassDataItems":"CALL org.digi.lg.neo4j.udf.data.dataProcedures.getClassDataItems({userId},{appId},{classVertexId},{classLabel},{filters},{pageOffset})",
+	"getOrgAndAssets":"CALL org.digi.lg.neo4j.udf.data.dataProcedures.getOrgAndAssets({userId},{appId},{contractTypeId},{contractId},{classVertexId},{classLabel},{filters},{pageOffset})",
+	"getDIClasses":"CALL org.digi.lg.neo4j.udf.data.dataProcedures.getDIClasses({userId},{appId},{contractTypeId},{contractId},{filters},{pageOffset})",
+	"getAllAssets":"CALL org.digi.lg.neo4j.udf.data.dataProcedures.getAllAssets({userId},{appId},{contractTypeId},{contractId},{classVertexId},{classLabel},{filters},{pageOffset})",
+	"getAssetByProductClass":"CALL org.digi.lg.neo4j.udf.data.dataProcedures.getAssetByProduct({productClassGuid})",
+	"getAssetByClass":"CALL org.digi.lg.neo4j.udf.data.dataProcedures.getAssetByClass({classGuid})",
+	"haveChildren":"CALL org.digi.lg.neo4j.udf.data.dataProcedures.haveChildren({guid},{srcLabel},{destLabel},{direction},{edgeLabel},{depth})",
+	"getAssetsByUser":"CALL org.digi.lg.neo4j.udf.data.dataProcedures.getAssetsByUser({userId},{appId},{contractTypeId},{contractId},{filters},{pageOffset})"
+}

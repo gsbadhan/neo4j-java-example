@@ -1,0 +1,14 @@
+{
+	"incrementCount": "MATCH (ds:data_shard) WITH ds ORDER BY ds.count ASC LIMIT 1 WITH ds SET ds.count=ds.count+1 RETURN ds",
+	
+	"dsBelongsClass": "MATCH (s:data_shard {guid:{src}}),(d:DEST_LBL {guid:{dest}}) MERGE (s)-[r:belongs]->(d) RETURN r as rid",
+	
+	"classHasDs": "MATCH (s:SRC_LBL {guid:{src}}),(d:data_shard {guid:{dest}}) MERGE (s)-[r:has]->(d) RETURN r as rid",
+	
+	"dsBelongsOrg":"MATCH (s:data_shard {guid:{src}}),(d:org {guid:{dest}}) MERGE (s)-[r:belongs]->(d) RETURN r as rid",
+	
+	"outDsFromGuid":"MATCH (s:SRC_LBL {guid:{src}})-[:REL]->(d:data_shard) return DISTINCT d as ds",
+	
+	"inDsFromGuid":"MATCH (s:SRC_LBL {guid:{src}})<-[:REL]-(d:data_shard) return DISTINCT d as ds"
+		
+}

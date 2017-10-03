@@ -1,0 +1,11 @@
+{	
+	
+	"getByGuid":"MATCH (et:events {guid:{guid}}) RETURN et",
+	"getEventsByContractType":"MATCH(ctta:contract_type{guid:{contractTypeId}})-[:has]->(te:term_event)-[:has*]->(et:events) return et",
+	"getEventsClassesTreeA":"MATCH p=(ct:contract_type{guid:{guid}})<-[:has]-(:class)<-[:is]-(:class{type:'events'})-[:has]->(evt:events) WITH COLLECT(p) AS paths CALL org.digi.lg.convert.toTree(paths) YIELD value RETURN value",
+	"getEventsClassesTreeB":"MATCH p=(ct:contract_type{guid:{guid}})<-[:has]-(:class)<-[:is]-(evt:class{type:'events'}) WITH COLLECT(p) AS paths CALL org.digi.lg.convert.toTree(paths) YIELD value RETURN value",
+	"getEventsByScriptByAssetId":"MATCH(ast:asset{guid:{guid}})<-[:appliesto]-(s:script)-[:has]->(et:events) RETURN et",
+	"getEventsByScriptProductId":"MATCH(pc:product_class{guid:{guid}})<-[:is]-(ast:asset)<-[:appliesto]-(s:script)-[:has]->(et:events) RETURN et",
+	"detachDeleteNode":"MATCH (et:events{guid:{guid}}) DETACH DELETE et"
+	
+}
