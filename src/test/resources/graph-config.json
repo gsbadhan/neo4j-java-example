@@ -10,7 +10,5 @@
 	"db.pool": 50,
 	"transaction.retry": 2,
 	"transaction.retry.delay": 5,
-	"trx.retry.errors": "concurrent",
-	"max.page.size": 50,
-	"stop.find.after":300
+	"trx.retry.errors": "concurrent"
 }

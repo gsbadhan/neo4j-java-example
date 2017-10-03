@@ -5,7 +5,7 @@
 	<appender name="fileappender" class="org.apache.log4j.RollingFileAppender">
 		<param name="maxBackupIndex" value="50" />
 		<param name="maxFileSize" value="512MB" />
-		<param name="File" value="/tmp/logs/neo4j-lib.log" />
+		<param name="File" value="/tmp/logs/neo4j-test.log" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d{HH:mm:ss,SSS} %t %-5p %c - %m%n" />
 		</layout>
