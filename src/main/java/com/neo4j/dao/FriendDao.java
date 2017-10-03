@@ -9,6 +9,8 @@ public interface FriendDao {
 	<TRX> Record save(TRX trx, String name, Integer age);
 
 	<TRX> Record update(TRX trx, String name, Integer newAge);
+	
+	<TRX> Record merge(TRX trx, String name, Integer age);
 
 	<TRX> Record delete(TRX trx, String name);
 	

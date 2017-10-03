@@ -32,7 +32,7 @@ public class FriendDaoImpl implements FriendDao {
 
 	@Override
 	public <TRX> Record update(TRX trx, String name, Integer newAge) {
-		String query = "merge (f:friends{name:{name},age:{age}}) return f";
+		String query = "match(f:friends{name:{name}}) set f.age={age} return f";
 		Map<String, Object> params = new HashMap<>(2);
 		params.put("name", name);
 		params.put("age", newAge);
@@ -56,7 +56,7 @@ public class FriendDaoImpl implements FriendDao {
 
 	@Override
 	public <TRX> Record friendConnectToFriend(TRX trx, String nameA, String nameB) {
-		String query = "match(a:friends{name:{name}}),(b:friends{name:{name}}) create (a)-[:connect]->(b) return a,b";
+		String query = "match(a:friends{name:{nameA}}),(b:friends{name:{nameB}}) create (a)-[:connect]->(b) return a,b";
 		Map<String, Object> params = new HashMap<>(2);
 		params.put("nameA", nameA);
 		params.put("nameB", nameB);
@@ -64,6 +64,19 @@ public class FriendDaoImpl implements FriendDao {
 		if (records.isEmpty())
 			return null;
 		return records.get(0);
+	}
+
+	@Override
+	public <TRX> Record merge(TRX trx, String name, Integer age) {
+		String query = "merge (f:friends{name:{name},age:{age}}) return f";
+		Map<String, Object> params = new HashMap<>(2);
+		params.put("name", name);
+		params.put("age", age);
+		List<Record> records = baseDao.executeQuery(trx, query, params);
+		if (records.isEmpty())
+			return null;
+		return records.get(0);
+	
 	}
 
 }

@@ -5,10 +5,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.gson.Gson;
 
 
 public class GraphContext {
@@ -30,7 +33,8 @@ public class GraphContext {
 				LOGGER.info("graph-config not found at path:{}, so loading from jar's resources..", currentFilePath);
 				graphConfigFile = GraphContext.class.getClassLoader().getResourceAsStream(CONFIG_FILE);
 			}
-			LOGGER.info("resource-path:{}", graphConfigFile);
+			Gson graphConfigGson = new Gson();
+			properties = graphConfigGson.fromJson(new InputStreamReader(graphConfigFile), Properties.class);
 			LOGGER.info("graph configurations:{}", properties);
 			graphConfigFile.close();
 		} catch (Exception e) {

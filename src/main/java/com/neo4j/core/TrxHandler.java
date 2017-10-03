@@ -13,10 +13,6 @@ public abstract class TrxHandler<RET> {
 		this.optionalArgs = null;
 	}
 
-	public TrxHandler(final Session session, final Object... optionalArgs) {
-		this.transaction = GraphTransaction.start(session);
-		this.optionalArgs = optionalArgs;
-	}
 
 	public RET execute() throws Exception {
 		try {

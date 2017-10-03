@@ -1,8 +1,5 @@
 package com.neo4j.dao;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,10 +12,10 @@ import com.neo4j.core.BaseDaoImpl;
 import com.neo4j.core.GraphContext;
 import com.neo4j.core.GraphFactory;
 import com.neo4j.core.GraphFactoryImpl;
-import com.neo4j.core.GraphTransaction;
+import com.neo4j.core.TrxHandler;
 
 public class FriendDaoImplTestIT {
-	private FriendDao employeeDao;
+	private FriendDao friendsDao;
 	private BaseDao baseDao;
 	private GraphFactory graphFactory;
 
@@ -29,8 +26,10 @@ public class FriendDaoImplTestIT {
 		String password = GraphContext.getConfig().getProperty("db.password");
 
 		graphFactory = new GraphFactoryImpl(url, user, password);
+		graphFactory.init();
+
 		baseDao = new BaseDaoImpl(graphFactory);
-		employeeDao = new FriendDaoImpl(baseDao);
+		friendsDao = new FriendDaoImpl(baseDao);
 	}
 
 	@After
@@ -38,15 +37,85 @@ public class FriendDaoImplTestIT {
 	}
 
 	@Test
-	public void testSave() {
+	public void testSave() throws Exception {
 		Session session = graphFactory.writeSession();
-		Transaction trx = GraphTransaction.start(session);
+		Record record = new TrxHandler<Record>(session) {
+			@Override
+			public Record block(Transaction transaction) {
+				Record record = friendsDao.save(transaction, "john", 20);
+				return record;
+			}
+		}.execute();
 
-		Record record = employeeDao.save(trx, "john", 20);
-		System.out.println("emp:" + record);
+		System.out.println("friend:" + record);
 
-		GraphTransaction.close(trx);
+		graphFactory.closeSession(session);
+	}
+	
+	
+	@Test
+	public void testUpdate() throws Exception {
+		Session session = graphFactory.writeSession();
+		Record record = new TrxHandler<Record>(session) {
+			@Override
+			public Record block(Transaction transaction) {
+				Record record = friendsDao.friendConnectToFriend(transaction, "john", "tom");
+				return record;
+			}
+		}.execute();
+
+		System.out.println("friend:" + record);
+
 		graphFactory.closeSession(session);
 	}
 
+	
+	@Test
+	public void testMerge() throws Exception {
+		Session session = graphFactory.writeSession();
+		Record record = new TrxHandler<Record>(session) {
+			@Override
+			public Record block(Transaction transaction) {
+				Record record = friendsDao.merge(transaction, "tom", 23);
+				return record;
+			}
+		}.execute();
+
+		System.out.println("friend:" + record);
+
+		graphFactory.closeSession(session);
+	}
+	
+	
+	@Test
+	public void testFriendConnectToFriend() throws Exception {
+		Session session = graphFactory.writeSession();
+		Record record = new TrxHandler<Record>(session) {
+			@Override
+			public Record block(Transaction transaction) {
+				Record record = friendsDao.friendConnectToFriend(transaction, "john", "tom");
+				return record;
+			}
+		}.execute();
+
+		System.out.println("friend:" + record);
+
+		graphFactory.closeSession(session);
+	}
+	
+	@Test
+	public void testDelete() throws Exception {
+		Session session = graphFactory.writeSession();
+		Record record = new TrxHandler<Record>(session) {
+			@Override
+			public Record block(Transaction transaction) {
+				Record record = friendsDao.delete(transaction, "john");
+				return record;
+			}
+		}.execute();
+
+		System.out.println("friend:" + record);
+
+		graphFactory.closeSession(session);
+	}
 }
