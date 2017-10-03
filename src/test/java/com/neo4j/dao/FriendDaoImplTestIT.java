@@ -17,35 +17,34 @@ import com.neo4j.core.GraphFactory;
 import com.neo4j.core.GraphFactoryImpl;
 import com.neo4j.core.GraphTransaction;
 
-public class EmployeeDaoImplTestIT {
-	private EmployeeDao employeeDao;
+public class FriendDaoImplTestIT {
+	private FriendDao employeeDao;
 	private BaseDao baseDao;
 	private GraphFactory graphFactory;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		String url = GraphContext.getConfig().getProperty("db.url");
 		String user = GraphContext.getConfig().getProperty("db.user");
 		String password = GraphContext.getConfig().getProperty("db.password");
 
 		graphFactory = new GraphFactoryImpl(url, user, password);
 		baseDao = new BaseDaoImpl(graphFactory);
-		employeeDao = new EmployeeDaoImpl(baseDao);
+		employeeDao = new FriendDaoImpl(baseDao);
 	}
 
 	@After
-	public void tearDown() throws Exception {
+	public void tearDown() {
 	}
 
 	@Test
 	public void testSave() {
 		Session session = graphFactory.writeSession();
 		Transaction trx = GraphTransaction.start(session);
-		
-		Map<String, Object> params = new HashMap<>(3);
-		Record record = employeeDao.save(trx, params);
+
+		Record record = employeeDao.save(trx, "john", 20);
 		System.out.println("emp:" + record);
-		
+
 		GraphTransaction.close(trx);
 		graphFactory.closeSession(session);
 	}
