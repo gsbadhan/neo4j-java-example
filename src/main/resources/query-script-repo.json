@@ -1,6 +1,0 @@
-{
-	"getScriptRepoInfo": "MATCH (spt:script_repo) RETURN spt,LABELS(spt)[0] AS lbl",
-	"getByGuid": "MATCH (spt:script_repo {guid:{guid}}) RETURN spt",
-	"getByUrl": "MATCH (spt:script_repo {git_url:{git_url}}) RETURN spt"
-
-}

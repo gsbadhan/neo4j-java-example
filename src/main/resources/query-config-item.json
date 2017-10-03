@@ -1,7 +1,0 @@
-{	
-	
-	"getByGuid":"MATCH (cdi:config_item {guid:{guid}}) RETURN ci",
-	"detachDeleteNode":"MATCH (cdi:config_item{guid:{guid}}) DETACH DELETE cdi"
-	
-	
-}

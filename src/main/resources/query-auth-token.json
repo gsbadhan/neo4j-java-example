@@ -1,6 +1,0 @@
-{	
-	
-	"getByGuid":"MATCH (at:auth_token {guid:{guid}}) RETURN at",
-	"detachDeleteToken":"MATCH (at:auth_token{guid:{guid}}) DETACH DELETE at"
-	
-}

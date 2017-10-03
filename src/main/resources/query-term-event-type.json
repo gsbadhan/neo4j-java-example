@@ -1,8 +1,0 @@
-{	
-	
-	"getByGuid":"MATCH (tet:term_event_type {guid:{guid}}) RETURN tet",
-	"createLink":"MATCH (s:SRC_LBL {guid:{src}}),(d:DEST_LBL {guid:{dest}}) MERGE (s)-[r:REL]->(d) RETURN r as rid",
-	"detachDeleteNode":"MATCH (tet:term_event_type{guid:{guid}}) DETACH DELETE tet"
-	
-	
-}

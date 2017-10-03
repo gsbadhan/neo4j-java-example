@@ -1,8 +1,0 @@
-{	
-	
-	"getByGuid":"MATCH (et:event_type {guid:{guid}}) RETURN et",
-	"detachDeleteNode":"MATCH (et:event_type{guid:{guid}}) DETACH DELETE et"
-	
-	
-	
-}
