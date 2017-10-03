@@ -4,11 +4,5 @@
 	"db.url": "bolt://localhost:7687",
 	"db.user": "neo4j",
 	"db.password": "test",
-	"db.read.url": "bolt://localhost:7687",
-	"db.read.user": "neo4j",
-	"db.read.password": "test",
-	"db.pool": 50,
-	"transaction.retry": 2,
-	"transaction.retry.delay": 5,
 	"trx.retry.errors": "concurrent"
 }
